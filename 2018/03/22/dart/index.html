@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Dart &amp; flutter 编码风格指南 | Hexo</title>
+  <meta name="description" content="代码风格标识符三种类型大驼峰类、枚举、typedef 和类型参数 12345class SliderMenu &amp;#123; ... &amp;#125;class HttpRequest &amp;#123; ... &amp;#125;typedef Predicate &#x3D; bool Function&amp;lt;T&amp;gt;(T value);  包括用于元数据注释的类 123456789class Foo &amp;#123;">
+<meta name="keywords" content="编码风格指南">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dart &amp; flutter 编码风格指南">
+<meta property="og:url" content="https://major9506.github.io/2018/03/22/dart/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="代码风格标识符三种类型大驼峰类、枚举、typedef 和类型参数 12345class SliderMenu &amp;#123; ... &amp;#125;class HttpRequest &amp;#123; ... &amp;#125;typedef Predicate &#x3D; bool Function&amp;lt;T&amp;gt;(T value);  包括用于元数据注释的类 123456789class Foo &amp;#123;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-03-01T21:34:02.292Z">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://major9506.github.io/2018/03/22/dart/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/Major9506" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Major_</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端/Node/Python</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ChongQing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Major9506" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/youguke63347" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/">编程规范</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" rel="tag">编码风格指南</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/node/" style="font-size: 13px;">node</a> <a href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" style="font-size: 13.5px;">编码风格指南</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/15/mj_cli/" class="title">打造自己的项目脚手架工具(@major_/cli)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-15T00:00:00.000Z" itemprop="datePublished">2019-10-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/08/01/architecture/" class="title">前端架构那些事儿</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-08-01T00:00:00.000Z" itemprop="datePublished">2019-08-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/05/assembly_02/" class="title">Web应用的组件化开发（二）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-05T00:00:00.000Z" itemprop="datePublished">2019-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/01/assembly_01/" class="title">Web应用的组件化开发（一）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-01T00:00:00.000Z" itemprop="datePublished">2019-05-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/15/js_mvc/" class="title">前端MV*框架的意义</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-15T00:00:00.000Z" itemprop="datePublished">2019-03-15</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-dart" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dart &amp; flutter 编码风格指南
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/03/22/dart/" class="article-date">
+	  <time datetime="2018-03-22T00:00:00.000Z" itemprop="datePublished">2018-03-22</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/">编程规范</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" rel="tag">编码风格指南</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/03/22/dart/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h2><h3 id="标识符三种类型"><a href="#标识符三种类型" class="headerlink" title="标识符三种类型"></a>标识符三种类型</h3><h4 id="大驼峰"><a href="#大驼峰" class="headerlink" title="大驼峰"></a>大驼峰</h4><p>类、枚举、typedef 和类型参数</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SliderMenu</span> </span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HttpRequest</span> </span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> Predicate = <span class="built_in">bool</span> <span class="built_in">Function</span>&lt;T&gt;(T value);</span><br></pre></td></tr></table></figure>
+
+<p>包括用于元数据注释的类</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> Foo([arg]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Foo</span>(anArg)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Foo</span>()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用小写加下划线来命名库和源文件"><a href="#使用小写加下划线来命名库和源文件" class="headerlink" title="使用小写加下划线来命名库和源文件"></a>使用小写加下划线来命名库和源文件</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> peg_parser.source_scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'file_system.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'slider_menu.dart'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span> pegparser.SourceScanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'file-system.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'SliderMenu.dart'</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用小写加下划线来命名导入前缀"><a href="#使用小写加下划线来命名导入前缀" class="headerlink" title="使用小写加下划线来命名导入前缀"></a>使用小写加下划线来命名导入前缀</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'dart:math'</span> <span class="keyword">as</span> math;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:angular_components/angular_components'</span></span><br><span class="line">    <span class="keyword">as</span> angular_components;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:js/js.dart'</span> <span class="keyword">as</span> js;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'dart:math'</span> <span class="keyword">as</span> Math;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:angular_components/angular_components'</span></span><br><span class="line">    <span class="keyword">as</span> angularComponents;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:js/js.dart'</span> <span class="keyword">as</span> JS;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用小驼峰法命名其他标识符"><a href="#使用小驼峰法命名其他标识符" class="headerlink" title="使用小驼峰法命名其他标识符"></a>使用小驼峰法命名其他标识符</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> item;</span><br><span class="line"></span><br><span class="line">HttpRequest httpRequest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> align(<span class="built_in">bool</span> clearItems) &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="优先使用小驼峰法作为常量命名"><a href="#优先使用小驼峰法作为常量命名" class="headerlink" title="优先使用小驼峰法作为常量命名"></a>优先使用小驼峰法作为常量命名</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> pi = <span class="number">3.14</span>;</span><br><span class="line"><span class="keyword">const</span> defaultTimeout = <span class="number">1000</span>;</span><br><span class="line"><span class="keyword">final</span> urlScheme = <span class="built_in">RegExp</span>(<span class="string">'^([a-z]+):'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dice</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">final</span> numberGenerator = Random();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PI = <span class="number">3.14</span>;</span><br><span class="line"><span class="keyword">const</span> DefaultTimeout = <span class="number">1000</span>;</span><br><span class="line"><span class="keyword">final</span> URL_SCHEME = <span class="built_in">RegExp</span>(<span class="string">'^([a-z]+):'</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dice</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">final</span> NUMBER_GENERATOR = Random();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="不使用前缀字母"><a href="#不使用前缀字母" class="headerlink" title="不使用前缀字母"></a>不使用前缀字母</h4><p>因为 Dart 可以告诉您声明的类型、范围、可变性和其他属性，所以没有理由将这些属性编码为标识符名称。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaultTimeout</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kDefaultTimeout</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>为了使你的文件前言保持整洁，我们有规定的命令，指示应该出现在其中。每个“部分”应该用空行分隔。</p>
+<h4 id="在其他引入之前引入所需的-dart-库"><a href="#在其他引入之前引入所需的-dart-库" class="headerlink" title="在其他引入之前引入所需的 dart 库"></a>在其他引入之前引入所需的 dart 库</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'dart:async'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'dart:html'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:bar/bar.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:foo/foo.dart'</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="在相对引入之前先引入在包中的库"><a href="#在相对引入之前先引入在包中的库" class="headerlink" title="在相对引入之前先引入在包中的库"></a>在相对引入之前先引入在包中的库</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:bar/bar.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:foo/foo.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'util.dart'</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="第三方包的导入先于其他包"><a href="#第三方包的导入先于其他包" class="headerlink" title="第三方包的导入先于其他包"></a>第三方包的导入先于其他包</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'package:bar/bar.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:foo/foo.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'package:my_package/util.dart'</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="在所有导入之后，在单独的部分中指定导出"><a href="#在所有导入之后，在单独的部分中指定导出" class="headerlink" title="在所有导入之后，在单独的部分中指定导出"></a>在所有导入之后，在单独的部分中指定导出</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'src/error.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'src/foo_bar.dart'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="string">'src/error.dart'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'src/error.dart'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="string">'src/error.dart'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'src/foo_bar.dart'</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="所有流控制结构，请使用大括号"><a href="#所有流控制结构，请使用大括号" class="headerlink" title="所有流控制结构，请使用大括号"></a>所有流控制结构，请使用大括号</h3><p>这样做可以避免悬浮的 else 问题</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (isWeekDay) &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'Bike to work!'</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'Go dancing or read a book!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="例外"><a href="#例外" class="headerlink" title="例外"></a>例外</h4><p>一个 if 语句没有 else 子句，其中整个 if 语句和 then 主体都适合一行。在这种情况下，如果你喜欢的话，你可以去掉大括号</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (arg == <span class="keyword">null</span>) <span class="keyword">return</span> defaultValue;</span><br></pre></td></tr></table></figure>
+
+<p>如果流程体超出了一行需要分划请使用大括号：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (overflowChars != other.overflowChars) &#123;</span><br><span class="line">  <span class="keyword">return</span> overflowChars &lt; other.overflowChars;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (overflowChars != other.overflowChars)</span><br><span class="line">  <span class="keyword">return</span> overflowChars &lt; other.overflowChars;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><h3 id="要像句子一样格式化"><a href="#要像句子一样格式化" class="headerlink" title="要像句子一样格式化"></a>要像句子一样格式化</h3><p>除非是区分大小写的标识符，否则第一个单词要大写。以句号结尾(或“!”或“?”)。对于所有的注释都是如此：doc 注释、内联内容，甚至 TODOs。即使是一个句子片段。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">greet(name) &#123;</span><br><span class="line">  <span class="comment">// Assume we have a valid name.</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'Hi, <span class="subst">$name</span>!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">greet(name) &#123;</span><br><span class="line">  <span class="comment">/* Assume we have a valid name. */</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">'Hi, <span class="subst">$name</span>!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用块注释(/…/)临时注释掉一段代码，但是所有其他注释都应该使用//</p>
+<h3 id="Doc-注释"><a href="#Doc-注释" class="headerlink" title="Doc 注释"></a>Doc 注释</h3><p>使用///文档注释来记录成员和类型。</p>
+<p>使用 doc 注释而不是常规注释，可以让 dartdoc 找到并生成文档。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="markdown">The number of characters in this chunk when unsplit.</span></span></span><br><span class="line"><span class="built_in">int</span> <span class="keyword">get</span> length =&gt; ...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由于历史原因，达特茅斯学院支持道格评论的两种语法:///(“C#风格”)和/<strong>…* /(“JavaDoc 风格”)。我们更喜欢/// 因为它更紧凑。/</strong>和<em>/在多行文档注释中添加两个无内容的行。在某些情况下，///语法也更容易阅读，例如文档注释包含使用</em>标记列表项的项目符号列表。</p>
+</blockquote>
+<h3 id="考虑为私有-api-编写文档注释"><a href="#考虑为私有-api-编写文档注释" class="headerlink" title="考虑为私有 api 编写文档注释"></a>考虑为私有 api 编写文档注释</h3><p>Doc 注释并不仅仅针对库的公共 API 的外部使用者。它们还有助于理解从库的其他部分调用的私有成员</p>
+<h4 id="用一句话总结开始-doc-注释"><a href="#用一句话总结开始-doc-注释" class="headerlink" title="用一句话总结开始 doc 注释"></a>用一句话总结开始 doc 注释</h4><p>以简短的、以用户为中心的描述开始你的文档注释，以句号结尾。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="markdown">Deletes the file at [path] from the file system.</span></span></span><br><span class="line"><span class="keyword">void</span> delete(<span class="built_in">String</span> path) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="markdown">Depending on the state of the file system and the user's permissions,</span></span></span><br><span class="line"><span class="comment">/// <span class="markdown">certain operations may or may not be possible. If there is no file at</span></span></span><br><span class="line"><span class="comment">/// <span class="markdown">[path] or it can't be accessed, this function throws either [IOError]</span></span></span><br><span class="line"><span class="comment">/// <span class="markdown">or [PermissionError], respectively. Otherwise, this deletes the file.</span></span></span><br><span class="line"><span class="keyword">void</span> delete(<span class="built_in">String</span> path) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="“doc-注释”的第一句话分隔成自己的段落"><a href="#“doc-注释”的第一句话分隔成自己的段落" class="headerlink" title="“doc 注释”的第一句话分隔成自己的段落"></a>“doc 注释”的第一句话分隔成自己的段落</h4><p>在第一个句子之后添加一个空行，把它分成自己的段落</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="markdown">Deletes the file at [path].</span></span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// <span class="markdown">Throws an [IOError] if the file could not be found. Throws a</span></span></span><br><span class="line"><span class="comment">/// <span class="markdown">[PermissionError] if the file is present but could not be deleted.</span></span></span><br><span class="line"><span class="keyword">void</span> delete(<span class="built_in">String</span> path) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Flutter-代码参考"><a href="#Flutter-代码参考" class="headerlink" title="Flutter 代码参考"></a>Flutter 代码参考</h2><h3 id="库的引用"><a href="#库的引用" class="headerlink" title="库的引用"></a>库的引用</h3><p>flutter 中，导入 lib 下文件库，统一指定报名，避免过多的<code>../../</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">package:flutter/xx</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><h4 id="使用相邻字符串连接字符串文字"><a href="#使用相邻字符串连接字符串文字" class="headerlink" title="使用相邻字符串连接字符串文字"></a>使用相邻字符串连接字符串文字</h4><p>如果有两个字符串字面值(不是值，而是实际引用的字面值)，则不需要使用+连接它们。就像在 C 和 c++中，简单地把它们放在一起就能做到。这是创建一个长字符串很好的方法但是不适用于单独一行。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">raiseAlarm(</span><br><span class="line">    <span class="string">'ERROR: Parts of the spaceship are on fire. Other '</span></span><br><span class="line">    <span class="string">'parts are overrun by martians. Unclear which are which.'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">raiseAlarm(<span class="string">'ERROR: Parts of the spaceship are on fire. Other '</span> +</span><br><span class="line">    <span class="string">'parts are overrun by martians. Unclear which are which.'</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="优先使用模板字符串"><a href="#优先使用模板字符串" class="headerlink" title="优先使用模板字符串"></a>优先使用模板字符串</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Hello, <span class="subst">$name</span>! You are <span class="subst">$&#123;year - birth&#125;</span> years old.'</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="在不需要的时候，避免使用花括号"><a href="#在不需要的时候，避免使用花括号" class="headerlink" title="在不需要的时候，避免使用花括号"></a>在不需要的时候，避免使用花括号</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Hi, <span class="subst">$name</span>!'</span></span><br><span class="line"><span class="string">"Wear your wildest <span class="subst">$decade</span>'s outfit."</span></span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Hello, '</span> + name + <span class="string">'! You are '</span> + (year - birth).toString() + <span class="string">' y...'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Hi, <span class="subst">$&#123;name&#125;</span>!'</span></span><br><span class="line"><span class="string">"Wear your wildest <span class="subst">$&#123;decade&#125;</span>'s outfit."</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><h4 id="尽可能使用集合字面量"><a href="#尽可能使用集合字面量" class="headerlink" title="尽可能使用集合字面量"></a>尽可能使用集合字面量</h4><p>如果要创建一个不可增长的列表，或者其他一些自定义集合类型，那么无论如何，都要使用构造函数。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> points = [];</span><br><span class="line"><span class="keyword">var</span> addresses = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> lines = &lt;Lines&gt;[];</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> points = <span class="built_in">List</span>();</span><br><span class="line"><span class="keyword">var</span> addresses = <span class="built_in">Map</span>();</span><br></pre></td></tr></table></figure>
+
+<h4 id="不要使用-length-查看集合是否为空"><a href="#不要使用-length-查看集合是否为空" class="headerlink" title="不要使用.length 查看集合是否为空"></a>不要使用.length 查看集合是否为空</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (lunchBox.isEmpty) <span class="keyword">return</span> <span class="string">'so hungry...'</span>;</span><br><span class="line"><span class="keyword">if</span> (words.isNotEmpty) <span class="keyword">return</span> words.join(<span class="string">' '</span>);</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (lunchBox.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="string">'so hungry...'</span>;</span><br><span class="line"><span class="keyword">if</span> (!words.isEmpty) <span class="keyword">return</span> words.join(<span class="string">' '</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="考虑使用高阶方法转换序列"><a href="#考虑使用高阶方法转换序列" class="headerlink" title="考虑使用高阶方法转换序列"></a>考虑使用高阶方法转换序列</h4><p>如果有一个集合，并且希望从中生成一个新的修改后的集合，那么使用.map()、.where()和 Iterable 上的其他方便的方法通常更短，也更具有声明性</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> aquaticNames = animals</span><br><span class="line">    .where((animal) =&gt; animal.isAquatic)</span><br><span class="line">    .map((animal) =&gt; animal.name);</span><br></pre></td></tr></table></figure>
+
+<h4 id="避免使用带有函数字面量的-Iterable-forEach"><a href="#避免使用带有函数字面量的-Iterable-forEach" class="headerlink" title="避免使用带有函数字面量的 Iterable.forEach()"></a>避免使用带有函数字面量的 Iterable.forEach()</h4><p>在 Dart 中，如果你想遍历一个序列，惯用的方法是使用循环。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> person <span class="keyword">in</span> people) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">people.forEach((person) &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="不要使用-List-from-，除非打算更改结果的类型"><a href="#不要使用-List-from-，除非打算更改结果的类型" class="headerlink" title="不要使用 List.from()，除非打算更改结果的类型"></a>不要使用 List.from()，除非打算更改结果的类型</h4><p>给定一个迭代，有两种明显的方法可以生成包含相同元素的新列表</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> copy1 = iterable.toList();</span><br><span class="line"><span class="keyword">var</span> copy2 = <span class="built_in">List</span>.from(iterable);</span><br></pre></td></tr></table></figure>
+
+<p>明显的区别是第一个比较短。重要的区别是第一个保留了原始对象的类型参数</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates a List&lt;int&gt;:</span></span><br><span class="line"><span class="keyword">var</span> iterable = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Prints "List&lt;int&gt;":</span></span><br><span class="line"><span class="built_in">print</span>(iterable.toList().runtimeType);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates a List&lt;int&gt;:</span></span><br><span class="line"><span class="keyword">var</span> iterable = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Prints "List&lt;dynamic&gt;":</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">List</span>.from(iterable).runtimeType);</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数的使用"><a href="#参数的使用" class="headerlink" title="参数的使用"></a>参数的使用</h3><h4 id="使用-将命名参数与其默认值分割开"><a href="#使用-将命名参数与其默认值分割开" class="headerlink" title="使用=将命名参数与其默认值分割开"></a>使用=将命名参数与其默认值分割开</h4><p>由于遗留原因，Dart 均允许“:”和“=”作为指定参数的默认值分隔符。为了与可选的位置参数保持一致，使用“=”。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> insert(<span class="built_in">Object</span> item, &#123;<span class="built_in">int</span> at = <span class="number">0</span>&#125;) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> insert(<span class="built_in">Object</span> item, &#123;<span class="built_in">int</span> at: <span class="number">0</span>&#125;) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="不要使用显式默认值-null"><a href="#不要使用显式默认值-null" class="headerlink" title="不要使用显式默认值 null"></a>不要使用显式默认值 null</h4><p>如果参数是可选的，但没有给它一个默认值，则语言隐式地使用 null 作为默认值，因此不需要编写它</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> error([<span class="built_in">String</span> message]) &#123;</span><br><span class="line">  stderr.write(message ?? <span class="string">'\n'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法:</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> error([<span class="built_in">String</span> message = <span class="keyword">null</span>]) &#123;</span><br><span class="line">  stderr.write(message ?? <span class="string">'\n'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><h4 id="不要显式地将变量初始化为空"><a href="#不要显式地将变量初始化为空" class="headerlink" title="不要显式地将变量初始化为空"></a>不要显式地将变量初始化为空</h4><p>在 Dart 中，未显式初始化的变量或字段自动被初始化为 null。不要多余赋值 null</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> _nextId;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazyId</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> _id;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">int</span> <span class="keyword">get</span> id &#123;</span><br><span class="line">    <span class="keyword">if</span> (_nextId == <span class="keyword">null</span>) _nextId = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (_id == <span class="keyword">null</span>) _id = _nextId++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> _id;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> _nextId = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LazyId</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int</span> _id = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">int</span> <span class="keyword">get</span> id &#123;</span><br><span class="line">    <span class="keyword">if</span> (_nextId == <span class="keyword">null</span>) _nextId = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (_id == <span class="keyword">null</span>) _id = _nextId++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> _id;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="避免储存你能计算的东西"><a href="#避免储存你能计算的东西" class="headerlink" title="避免储存你能计算的东西"></a>避免储存你能计算的东西</h4><p>在设计类时，您通常希望将多个视图公开到相同的底层状态。通常你会看到在构造函数中计算所有视图的代码，然后存储它们:</p>
+<p>应该避免的写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> radius;</span><br><span class="line">  <span class="built_in">num</span> area;</span><br><span class="line">  <span class="built_in">num</span> circumference;</span><br><span class="line"></span><br><span class="line">  Circle(<span class="built_in">num</span> radius)</span><br><span class="line">      : radius = radius,</span><br><span class="line">        area = pi * radius * radius,</span><br><span class="line">        circumference = pi * <span class="number">2.0</span> * radius;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上代码问题：</p>
+<ul>
+<li>浪费内存</li>
+<li>缓存的问题是无效——如何知道何时缓存过期需要重新计算？</li>
+</ul>
+<p>推荐的写法如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Circle</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> radius;</span><br><span class="line"></span><br><span class="line">  Circle(<span class="keyword">this</span>.radius);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> area =&gt; pi * radius * radius;</span><br><span class="line">  <span class="built_in">num</span> <span class="keyword">get</span> circumference =&gt; pi * <span class="number">2.0</span> * radius;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h3><h4 id="不要把不必要地将字段包装在-getter-和-setter-中"><a href="#不要把不必要地将字段包装在-getter-和-setter-中" class="headerlink" title="不要把不必要地将字段包装在 getter 和 setter 中"></a>不要把不必要地将字段包装在 getter 和 setter 中</h4><p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> _contents;</span><br><span class="line">  <span class="keyword">get</span> contents =&gt; _contents;</span><br><span class="line">  <span class="keyword">set</span> contents(value) &#123;</span><br><span class="line">    _contents = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="优先使用-final-字段来创建只读属性"><a href="#优先使用-final-字段来创建只读属性" class="headerlink" title="优先使用 final 字段来创建只读属性"></a>优先使用 final 字段来创建只读属性</h4><p>尤其对于 <code>StatelessWidget</code></p>
+<h4 id="在不需要的时候不要用-this"><a href="#在不需要的时候不要用-this" class="headerlink" title="在不需要的时候不要用 this"></a>在不需要的时候不要用 this</h4><p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> value;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> clear() &#123;</span><br><span class="line">    <span class="keyword">this</span>.update(<span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> update(value) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> value;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> clear() &#123;</span><br><span class="line">    update(<span class="keyword">null</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> update(value) &#123;</span><br><span class="line">    <span class="keyword">this</span>.value = value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><h4 id="尽可能使用初始化的形式"><a href="#尽可能使用初始化的形式" class="headerlink" title="尽可能使用初始化的形式"></a>尽可能使用初始化的形式</h4><p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> x, y;</span><br><span class="line">  Point(<span class="built_in">num</span> x, <span class="built_in">num</span> y) &#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">    <span class="keyword">this</span>.y = y;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">  <span class="built_in">num</span> x, y;</span><br><span class="line">  Point(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="不要使用-new"><a href="#不要使用-new" class="headerlink" title="不要使用 new"></a>不要使用 new</h4><p>Dart2 使 new 关键字可选</p>
+<p>推荐写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> Row(</span><br><span class="line">    children: [</span><br><span class="line">      RaisedButton(</span><br><span class="line">        child: Text(<span class="string">'Increment'</span>),</span><br><span class="line">      ),</span><br><span class="line">      Text(<span class="string">'Click!'</span>),</span><br><span class="line">    ],</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐如下写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Row(</span><br><span class="line">    children: [</span><br><span class="line">      <span class="keyword">new</span> RaisedButton(</span><br><span class="line">        child: <span class="keyword">new</span> Text(<span class="string">'Increment'</span>),</span><br><span class="line">      ),</span><br><span class="line">      <span class="keyword">new</span> Text(<span class="string">'Click!'</span>),</span><br><span class="line">    ],</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><h4 id="优先使用-async-await-代替原始的-futures"><a href="#优先使用-async-await-代替原始的-futures" class="headerlink" title="优先使用 async/await 代替原始的 futures"></a>优先使用 async/await 代替原始的 futures</h4><p>async/await 语法提高了可读性，允许你在异步代码中使用所有 Dart 控制流结构。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Future&lt;<span class="built_in">int</span>&gt; countActivePlayers(<span class="built_in">String</span> teamName) <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> team = <span class="keyword">await</span> downloadTeam(teamName);</span><br><span class="line">    <span class="keyword">if</span> (team == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> players = <span class="keyword">await</span> team.roster;</span><br><span class="line">    <span class="keyword">return</span> players.where((player) =&gt; player.isActive).length;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    log.error(e);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="当异步没有任何用处时，不要使用它"><a href="#当异步没有任何用处时，不要使用它" class="headerlink" title="当异步没有任何用处时，不要使用它"></a>当异步没有任何用处时，不要使用它</h4><p>如果可以在不改变函数行为的情况下省略异步，那么就这样做。、</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Future afterTwoThings(Future first, Future second) &#123;</span><br><span class="line">  <span class="keyword">return</span> Future.wait([first, second]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不推荐写法：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Future afterTwoThings(Future first, Future second) <span class="keyword">async</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> Future.wait([first, second]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.dartlang.org/guides/language/effective-dart/style" target="_blank" rel="noopener">附 Dart 官方 Style 指南</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://major9506.github.io/2018/03/22/dart/" title="Dart &amp; flutter 编码风格指南" target="_blank" rel="external">https://major9506.github.io/2018/03/22/dart/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/Major9506" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/Major9506" target="_blank"><span class="text-dark">Major_</span><small class="ml-1x">前端/Node/Python</small></a></h3>
+        <div>年轻无为，卖马为生</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/03/22/javascript/" title="JavaScript &amp; TS 编码风格指南"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/03/20/git/" title="Git使用流程规范"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Major9506" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/youguke63347" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>

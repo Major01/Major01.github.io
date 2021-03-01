@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>IOS 编码风格指南 | Hexo</title>
+  <meta name="description" content="Objective-C 编码规范目录 命名 基本原则 命名空间 方法名 协议名 通知命名 临时变量命名 常量命名 大小写 缩写 其他   代码格式化 空格 花括号 折行   代码组织 类 Property attributes   注释 块注释   其他 异常   参考 iOS 开发规范&amp;amp;建议  命名基本原则 仿照 Cocoa 风格来，使用长命名风格 变量命名推荐的命名语素顺序是：最开头是">
+<meta name="keywords" content="编码风格指南">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IOS 编码风格指南">
+<meta property="og:url" content="https://major9506.github.io/2018/08/21/ios/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Objective-C 编码规范目录 命名 基本原则 命名空间 方法名 协议名 通知命名 临时变量命名 常量命名 大小写 缩写 其他   代码格式化 空格 花括号 折行   代码组织 类 Property attributes   注释 块注释   其他 异常   参考 iOS 开发规范&amp;amp;建议  命名基本原则 仿照 Cocoa 风格来，使用长命名风格 变量命名推荐的命名语素顺序是：最开头是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-03-01T21:34:02.292Z">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://major9506.github.io/2018/08/21/ios/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/Major9506" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Major_</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端/Node/Python</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ChongQing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Major9506" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/youguke63347" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/">编程规范</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" rel="tag">编码风格指南</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/node/" style="font-size: 13px;">node</a> <a href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" style="font-size: 13.5px;">编码风格指南</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/15/mj_cli/" class="title">打造自己的项目脚手架工具(@major_/cli)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-15T00:00:00.000Z" itemprop="datePublished">2019-10-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/08/01/architecture/" class="title">前端架构那些事儿</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-08-01T00:00:00.000Z" itemprop="datePublished">2019-08-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/05/assembly_02/" class="title">Web应用的组件化开发（二）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-05T00:00:00.000Z" itemprop="datePublished">2019-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/01/assembly_01/" class="title">Web应用的组件化开发（一）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-01T00:00:00.000Z" itemprop="datePublished">2019-05-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/15/js_mvc/" class="title">前端MV*框架的意义</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-15T00:00:00.000Z" itemprop="datePublished">2019-03-15</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-ios" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      IOS 编码风格指南
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/08/21/ios/" class="article-date">
+	  <time datetime="2018-08-21T00:00:00.000Z" itemprop="datePublished">2018-08-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/">编程规范</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" rel="tag">编码风格指南</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/08/21/ios/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h1 id="Objective-C-编码规范"><a href="#Objective-C-编码规范" class="headerlink" title="Objective-C 编码规范"></a>Objective-C 编码规范</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a><a name="TOC"></a>目录</h2><ul>
+<li><a href="#naming">命名</a><ul>
+<li><a href="#naming-basic-principle">基本原则</a></li>
+<li><a href="#namespace">命名空间</a></li>
+<li><a href="#naming-method">方法名</a></li>
+<li><a href="#naming-protocol">协议名</a></li>
+<li><a href="#naming-notifications">通知命名</a></li>
+<li><a href="#naming-temporary-variable">临时变量命名</a></li>
+<li><a href="#naming-constant">常量命名</a></li>
+<li><a href="#naming-match-case">大小写</a></li>
+<li><a href="#abbreviation">缩写</a></li>
+<li><a href="#naming-others">其他</a></li>
+</ul>
+</li>
+<li><a href="#formatting">代码格式化</a><ul>
+<li><a href="#spaces">空格</a></li>
+<li><a href="#braces">花括号</a></li>
+<li><a href="#line-wrap">折行</a></li>
+</ul>
+</li>
+<li><a href="#code-organization">代码组织</a></li>
+<li><a href="#class">类</a><ul>
+<li><a href="#property-attributes">Property attributes</a></li>
+</ul>
+</li>
+<li><a href="#comment">注释</a><ul>
+<li><a href="#block-comment">块注释</a></li>
+</ul>
+</li>
+<li><a href="#others">其他</a><ul>
+<li><a href="#exception">异常</a></li>
+</ul>
+</li>
+<li><a href="#reference">参考</a></li>
+<li><a href="#suggestion">iOS 开发规范&amp;建议</a></li>
+</ul>
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a><a name="naming"></a>命名</h2><h3 id="基本原则"><a href="#基本原则" class="headerlink" title="基本原则"></a><a name="naming-basic-principle"></a>基本原则</h3><ul>
+<li>仿照 Cocoa 风格来，使用长命名风格</li>
+<li>变量命名推荐的命名语素顺序是：最开头是命名空间简写，然后越重要、区别度越大的语素越要往前放。经典的结构是：作用范围+限定修饰+类型。例：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> ushort APIDefaultPageSize;        <span class="comment">// 还行，能明白意思了</span></span><br><span class="line"><span class="keyword">extern</span> ushort APIDefaultFetchPageSize;   <span class="comment">// 加上些限定更好一些</span></span><br><span class="line"><span class="keyword">extern</span> ushort APIFetchPageSizeDefault;   <span class="comment">// 再好些，把重要的往前放</span></span><br><span class="line"></span><br><span class="line">MSToolbarComment    <span class="comment">// 不推荐</span></span><br><span class="line">MSCommentToolbar    <span class="comment">// OK，把类型（toolbar）置后</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a><a name="namespace"></a>命名空间</h3><ul>
+<li>类名、protocols、C 函数、常量、结构体和枚举应带有命名空间前缀；</li>
+<li>类方法不要带前缀，结构体字段也不要带前缀</li>
+</ul>
+<h3 id="方法名"><a href="#方法名" class="headerlink" title="方法名"></a><a name="naming-method"></a>方法名</h3><ul>
+<li>以 <code>alloc</code>、<code>copy</code>、<code>init</code>、<code>mutableCopy</code>、<code>new</code> 开头的方法要注意，它们会改变 ARC 的行为。[^1]</li>
+<li>以 <code>get</code>、<code>set</code> 开头的方法有特殊的意义，不要随意定义。<ol>
+<li>set 是属性默认的设置方法，如果函数不是为了设置类成员，则不要用 <code>set</code> 开头，可用 <code>setup</code> 替代。</li>
+<li>get 和属性方法无关，但在 Cocoa 中，其标准行为是通过引用传值，而不是直接返回结果的。欲获取变量，直接以变量名为名，如：<code>userInfomation</code>，而不是 <code>getUserInfomation</code>。</li>
+</ol>
+</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; OK</span><br><span class="line">- (NSString *)name;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 糟糕，应用上面的写法</span><br><span class="line">- (NSString *)getName;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; OK，但极少使用</span><br><span class="line">- (void)getName:(NSString **)buffer range:(NSRange)inRange;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; OK</span><br><span class="line">- (NSSize)cellSize;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 糟糕，应用上面的写法</span><br><span class="line">- (NSSize)calcCellSize;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 对 controller 做一般设置，OK</span><br><span class="line">- (void)setupController;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 列出具体设置的内容，更好</span><br><span class="line">- (void)setupControllerObservers;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 糟糕，set 专用于设置属性</span><br><span class="line">- (void)setController;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 来自官方文档</span><br><span class="line">insertObject:atIndex:    &#x2F;&#x2F; OK</span><br><span class="line">insert:at:               &#x2F;&#x2F; 不清晰，插入了什么？at 具体指哪里？</span><br><span class="line">removeObjectAtIndex:     &#x2F;&#x2F; OK</span><br><span class="line">removeObject:            &#x2F;&#x2F; OK</span><br><span class="line">remove:                  &#x2F;&#x2F; 糟糕，什么被移除了？</span><br></pre></td></tr></table></figure>
+
+<h3 id="协议名"><a href="#协议名" class="headerlink" title="协议名"></a><a name="naming-protocol"></a>协议名</h3><p>好的协议名应能立刻让人分辨出这不是一个类名，除了以常用的 delegate、dateSource 做结尾外，还可以使用 …ing 这种形式，如：<code>NSCoding</code>、<code>NSCopying</code>、<code>NSLocking</code>。</p>
+<h3 id="通知命名"><a href="#通知命名" class="headerlink" title="通知命名"></a><a name="naming-notifications"></a>通知命名</h3><p>基本命名格式是：<code>[与通知相关的类名] + [Did | Will] + [UniquePartOfName] + Notification</code>，例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSApplicationDidBecomeActiveNotification</span><br><span class="line">NSWindowDidMiniaturizeNotification</span><br><span class="line">NSTextViewDidChangeSelectionNotification</span><br><span class="line">NSColorPanelColorDidChangeNotification</span><br></pre></td></tr></table></figure>
+
+<h3 id="临时变量命名"><a href="#临时变量命名" class="headerlink" title="临时变量命名"></a><a name="naming-temporary-variable"></a>临时变量命名</h3><ul>
+<li>临时变量可以写得很短，如 i、k、vc 这样；</li>
+<li>临时变量可以使用匈牙利前缀，但数据类型不可以作为前缀：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// OK</span></span><br><span class="line">wCell, vcMaster, vToolbar</span><br><span class="line"></span><br><span class="line"><span class="comment">// 糟糕，数据类型作为前缀</span></span><br><span class="line">bool_switchState, floatBoxHeight</span><br></pre></td></tr></table></figure>
+
+<p>推荐的前缀：</p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ix</td>
+<td>序号，起始为 0</td>
+</tr>
+<tr>
+<td>in</td>
+<td>序号（自然数范围），起始为 1</td>
+</tr>
+<tr>
+<td>if</td>
+<td>类型为浮点的“序号”</td>
+</tr>
+<tr>
+<td>x</td>
+<td>坐标</td>
+</tr>
+<tr>
+<td>y</td>
+<td>坐标</td>
+</tr>
+<tr>
+<td>w</td>
+<td>宽度</td>
+</tr>
+<tr>
+<td>h</td>
+<td>高度</td>
+</tr>
+<tr>
+<td>vc</td>
+<td>视图控制器</td>
+</tr>
+<tr>
+<td>v</td>
+<td>视图</td>
+</tr>
+</tbody></table>
+<h3 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a><a name="naming-constant"></a>常量命名</h3><p>除以上规则约定外，其他常量约定了以下前缀：</p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>k</td>
+<td>宏常量</td>
+</tr>
+<tr>
+<td>CDEN</td>
+<td>Core Data entity name</td>
+</tr>
+<tr>
+<td>UDk</td>
+<td>User Default key</td>
+</tr>
+<tr>
+<td>APIURL</td>
+<td>接口地址</td>
+</tr>
+</tbody></table>
+<p>另见：<a href="#constant">常量管理</a></p>
+<h3 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a><a name="naming-match-case"></a>大小写</h3><ul>
+<li>类名采用大驼峰（<code>UpperCamelCase</code>）</li>
+<li>类成员、方法小驼峰（<code>lowerCamelCase</code>）</li>
+<li>局部变量大小写首选小驼峰，也可使用小写下划线的形式（<code>snake_case</code>）</li>
+<li>C 函数的命名用大驼峰</li>
+</ul>
+<h3 id="缩写"><a href="#缩写" class="headerlink" title="缩写"></a><a name="abbreviation"></a>缩写</h3><p>可以使用广泛使用的缩写，如 <code>URL</code>、<code>JSON</code>，并且缩写要大写。但像将<code>download</code>简写为<code>dl</code>这种是不可以的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; OK</span><br><span class="line">ID, URL, JSON, WWW</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 糟糕</span><br><span class="line">id, Url, json, www</span><br><span class="line"></span><br><span class="line">destinationSelection       &#x2F;&#x2F; OK</span><br><span class="line">destSel                    &#x2F;&#x2F; 糟糕</span><br><span class="line">setBackgroundColor:        &#x2F;&#x2F; OK</span><br><span class="line">setBkgdColor:              &#x2F;&#x2F; 糟糕</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a><a name="naming-others"></a>其他</h3><p>i，j 专用于循环标号</p>
+<p>为私有方法命名不要直接以“_”开头，而应以“命名空间_”开头。</p>
+<h2 id="代码格式化"><a href="#代码格式化" class="headerlink" title="代码格式化"></a><a name="formatting"></a>代码格式化</h2><h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a><a name="spaces"></a>空格</h3><p>类方法声明在方法类型与返回类型之间要有空格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 糟糕</span><br><span class="line">-(void)methodName:(NSString *)string;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; OK</span><br><span class="line">- (void)methodName:(NSString *)string;</span><br></pre></td></tr></table></figure>
+
+<p>条件判断的括号内侧不应有空格。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 糟糕</span></span><br><span class="line"><span class="keyword">if</span> ( a &lt; b ) &#123;</span><br><span class="line">    <span class="comment">// something</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// OK</span></span><br><span class="line"><span class="keyword">if</span> (a &lt; b) &#123;</span><br><span class="line">    <span class="comment">// something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关系运算符（如 <code>&gt;=</code>、<code>!=</code>）和逻辑运算符（如 <code>&amp;&amp;</code>、<code>||</code>）两边要有空格。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// OK</span></span><br><span class="line">(someValue &gt; <span class="number">100</span>)? YES : NO</span><br></pre></td></tr></table></figure>
+
+<p>二元算数运算符两侧是否加空格不确定，根据情况自己定。一元运算符与操作数之前没有空格。</p>
+<p>多个参数逗号后留一个空格（这也符合正常的西文语法）。</p>
+<h3 id="花括号"><a href="#花括号" class="headerlink" title="花括号"></a><a name="braces"></a>花括号</h3><p>方法的花括号推荐在一行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (void)methodName:(NSString *)string &#123;</span><br><span class="line">  ↑空格                               ↑空格,推荐花括号在一行</span><br><span class="line">    if () &#123;</span><br><span class="line">   空格↑  ↑空格，花括号不要另起一行</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">   要换行↑空格，花括号不要另起一行</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>动机</strong></p>
+<blockquote>
+<p>Xcode 默认的花括号位置是这样的：方法内部的各种补全都是在同一行的；方法定义的比较混乱，默认模版另起一行，但从 Interface Builder 中连线生成的方法在同一行的。</p>
+<p>考虑到 Xcode 的默认行为，方法内部要另起一行，方法所在行不强制定死。另外，模版可以定制，而 IB 生成的代码不可定制，所以不另起一行的写法优先。</p>
+<p>另起一行的写法在代码折叠后非常难看。</p>
+</blockquote>
+<h3 id="折行"><a href="#折行" class="headerlink" title="折行"></a><a name="line-wrap"></a>折行</h3><p>与多数其他规范不同，不建议手动折行。</p>
+<p><strong>动机</strong></p>
+<blockquote>
+<p>手动折行的效果严重宽度依赖于窗口宽度——窗口过宽浪费宝贵的屏幕空间，较窄时可能无法阅读。而且 Xcode 自动折行的效果还是不错的。</p>
+</blockquote>
+<h2 id="代码组织"><a href="#代码组织" class="headerlink" title="代码组织"></a><a name="code-organization"></a>代码组织</h2><ul>
+<li>函数长度（行数）不应超过 2/3 屏幕，禁止超过 70 行。<br>: 例外：对于顺序执行的初始化函数，如果其中的过程没有提取为独立方法的必要，则不必限制长度。</li>
+<li>单个文件方法数不应超过 30 个</li>
+<li>不要按类别排序（如把 IBAction 放在一块），应按任务把相关的组合在一起</li>
+<li>禁止出现超过两层循环的代码，用函数或 block 替代。</li>
+</ul>
+<p>尽早返回错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 为了简化示例，没有错误处理，并使用了伪代码</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 糟糕的例子</span><br><span class="line">- (Task *)creatTaskWithPath:(NSString *)path &#123;</span><br><span class="line">    Task *aTask;</span><br><span class="line">    if ([path isURL]) &#123;</span><br><span class="line">        if ([fileManager isWritableFileAtPath:path]) &#123;</span><br><span class="line">            if (![taskManager hasTaskWithPath:path]) &#123;</span><br><span class="line">                aTask &#x3D; [[Task alloc] initWithPath:path];</span><br><span class="line">            &#125;</span><br><span class="line">            else &#123;</span><br><span class="line">                return nil;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    return aTask;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 改写的例子</span><br><span class="line">- (Task *)creatTaskWithPath:(NSString *)path &#123;</span><br><span class="line">    if (![path isURL]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (![fileManager isWritableFileAtPath:path]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if ([taskManager hasTaskWithPath:path]) &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Task *aTask &#x3D; [[Task alloc] initWithPath:path];</span><br><span class="line">    return aTask;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a><a name="class"></a>类</h2><p>禁止在类的 interface 中定义任何 iVar 成员，只允许使用属性，但可以在特定情形中使用属性生成的 iVar。</p>
+<p>尽量总是使用点操作符访问属性，而不是属性生成的 iVar 变量。以下情形除外：</p>
+<ul>
+<li>明确要避免修改产生 KVO 通知的；</li>
+<li>需重写属性 getter 或 setter 的；</li>
+<li>性能分析确定使用属性会导致性能不可接受的；</li>
+<li>多线程环境中，为防止互斥一次进行多个修改的；</li>
+<li>init、dealloc 方法中。</li>
+</ul>
+<p>动机</p>
+<blockquote>
+<p>如果使用 iVar，很多情况要特殊处理，容易出错。总是使用成员，规则简单，不易出问题。</p>
+<p>直接访问 iVar 的 block 会 retain iVar 所属的对象，这点很容易被忽略</p>
+<p>定义和使用 iVar 都会产生编译警告，只不过默认设置没启用这两个警告</p>
+</blockquote>
+<h3 id="Property-attributes"><a href="#Property-attributes" class="headerlink" title="Property attributes"></a><a name="property-attributes"></a>Property attributes</h3><p>什么时候使用 copy？</p>
+<ul>
+<li>block 属性要定义成 copy。</li>
+<li>当一个属性赋值后不期望改变时应当用 copy，最常见的类型如 NSString、NSURL。可变类型的成员，如 NSMutableArray、NSMutableDictionary 不能定成 copy 的。</li>
+</ul>
+<p>相关 Demo 可在 <a href="https://github.com/BB9z/PropertyTest" target="_blank" rel="noopener">https://github.com/BB9z/PropertyTest</a> 获得。</p>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a><a name="constant"></a>常量</h2><p>除非调试用的、控制不同编译模式行为的常量可用宏外，其他常量不得用宏定义。</p>
+<p>常量定义示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 头文件</span><br><span class="line">extern ushort APIFetchPageSizeDefault;    &#x2F;&#x2F; 无const，可在外部修改</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 实现文件</span><br><span class="line">ushort APIFetchPageSizeDefault &#x3D; 10;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a><a name="comment"></a>注释</h2><p>尽量让代码可以自表述，而不是依赖注释。</p>
+<blockquote>
+<p>注释应该表达那些代码没有表达以及无法表达的东西。如果一段注释被用于解释一些本应该由这段代码自己表达的东西，我们就应该将这段注释看成一个改变代码结构或编码惯例直至代码可以自我表达的信号。我们重命名那些糟糕的方法和类名，而不是去修补。我们选择将长函数中的一些代码段抽取出来形成一些小函数，这些小函数的名字可以表述原代码段的意图，而不是对这些代码段进行注释。尽可能的通过代码进行表达。你通过代码所能表达的和你想要表达的所有事情之间的差额将为注释提供了一个合理的候选使用场合。对那些代码无法表达的东西进行注释，而不要仅简单地注释那些代码没有表达的东西。”[^2]</p>
+</blockquote>
+<h3 id="块注释"><a href="#块注释" class="headerlink" title="块注释"></a><a name="block-comment"></a>块注释</h3><p>方法内部禁止使用块注释。除非要临时注释大段代码，一般情况总应使用行注释。</p>
+<p><strong>动机</strong></p>
+<blockquote>
+<p>因为块注释不能正确嵌套。</p>
+</blockquote>
+<h2 id="其他-1"><a href="#其他-1" class="headerlink" title="其他"></a><a name="others"></a>其他</h2><h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a><a name="exception"></a>异常</h3><ul>
+<li>作为被调用模块的维护者，当被调用不当时（参数有问题、不和时宜），如何处理需要考虑（抛出异常还是返回错误状态）；</li>
+<li>不要依赖 try catch，它不是代替你做检查、填补遗漏的工具。</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><a name="reference"></a>参考</h2><ul>
+<li><a href="https://github.com/lzyy/iOS-Team-Norms/blob/master/CodeStyle.md" target="_blank" rel="noopener">https://github.com/lzyy/iOS-Team-Norms/blob/master/CodeStyle.md</a></li>
+<li><a href="http://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html" target="_blank" rel="noopener">Coding Guidelines for Cocoa</a></li>
+<li><a href="https://github.com/github/objective-c-conventions" target="_blank" rel="noopener">https://github.com/github/objective-c-conventions</a></li>
+<li><a href="https://github.com/jverkoey/iOS-Best-Practices" target="_blank" rel="noopener">https://github.com/jverkoey/iOS-Best-Practices</a></li>
+<li><a href="//www.v2ex.com/t/25732">你们是如何为 View Controller 的变量命名的呢？ - V2EX</a></li>
+<li><a href="http://www.amazon.cn/dp/B0061XKRXA" target="_blank" rel="noopener">代码大全(第 2 版) - 亚马逊</a></li>
+</ul>
+<p><a name="footnote"></a><br>[^1]: <a href="http://pingguohe.net/2012/06/22/talk_arc_again/" target="_blank" rel="noopener">再谈 ARC - 苹果核</a><br>[^2]: <a href="http://bigwhite.blogbus.com/logs/125602412.html" target="_blank" rel="noopener">只对代码无法表达的东西写注释 - Tony Bai</a></p>
+<h1 id="iOS-开发规范-amp-建议"><a href="#iOS-开发规范-amp-建议" class="headerlink" title="iOS 开发规范&amp;建议"></a><a name="suggestion"></a>iOS 开发规范&amp;建议</h1><p>1.精简代码, 返回最后一句的值，这个方法有一个优点，所有的变量都在代码块中，也就是只在代码块的区域中有效，这意味着可以减少对其他作用域的命名污染。但缺点是可读性比较差</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSURL *url &#x3D; (&#123; NSString *urlString &#x3D; [NSString stringWithFormat:@&quot;%@&#x2F;%@&quot;, baseURLString, endpoint];</span><br><span class="line">    [NSURL URLWithString:urlString];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>2.关于编译器：关闭警告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#pragma clang diagnostic push</span><br><span class="line">#pragma clang diagnostic ignored &quot;-Warc-performSelector-leaks&quot;</span><br><span class="line">[myObj performSelector:mySelector withObject:name];</span><br><span class="line">#pragma clang diagnostic pop</span><br></pre></td></tr></table></figure>
+
+<p>3.忽略没用的变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#pragma unused (foo)</span><br><span class="line">明确定义错误和警告</span><br><span class="line">#error Whoa, buddy, you need to check for zero here!</span><br><span class="line">#warning Dude, don&#39;t compare floating point numbers like this!</span><br></pre></td></tr></table></figure>
+
+<p>4.避免循环引用</p>
+<p>如果【block 内部】使用【外部声明的强引用】访问【对象 A】, 那么【block 内部】会自动产生一个【强引用】指向【对象 A】<br>如果【block 内部】使用【外部声明的弱引用】访问【对象 A】, 那么【block 内部】会自动产生一个【弱引用】指向【对象 A】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">dispatch_block_t block &#x3D; ^&#123;</span><br><span class="line">   	[weakSelf doSomething]; &#x2F;&#x2F; weakSelf !&#x3D; nil</span><br><span class="line">	&#x2F;&#x2F; preemption, weakSelf turned nil</span><br><span class="line">	[weakSelf doSomethingElse]; &#x2F;&#x2F; weakSelf &#x3D;&#x3D; nil</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>最好这样调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">__weak typeof(self) weakSelf &#x3D; self;</span><br><span class="line">myObj.myBlock &#x3D; ^&#123;</span><br><span class="line">    __strong typeof(self) strongSelf &#x3D; weakSelf;</span><br><span class="line">    if (strongSelf) &#123;</span><br><span class="line">        [strongSelf doSomething]; &#x2F;&#x2F; strongSelf !&#x3D; nil</span><br><span class="line">        &#x2F;&#x2F; preemption, strongSelf still not nil（抢占的时候，strongSelf 还是非 nil 的)</span><br><span class="line">        [strongSelf doSomethingElse]; &#x2F;&#x2F; strongSelf !&#x3D; nil</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123; &#x2F;&#x2F; Probably nothing... return;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>5.宏要写成大写,至少要有大写,全部小写有时候书写不提示参数;</p>
+<p>6.建议书写枚举模仿苹果——在列出枚举内容的同时绑定了枚举数据类型 NSUInteger，这样带来的好处是增强的类型检查和更好的代码可读性,示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 不推荐写法</span><br><span class="line">typedef enum&#123;</span><br><span class="line">    UIControlStateNormal       &#x3D; 0,</span><br><span class="line">    UIControlStateHighlighted  &#x3D; 1 &lt;&lt; 0,</span><br><span class="line">    UIControlStateDisabled     &#x3D; 1 &lt;&lt; 1,</span><br><span class="line">&#125; UIControlState;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 推荐写法</span><br><span class="line">typedef NS_OPTIONS(NSUInteger, UIControlState) &#123;</span><br><span class="line">    UIControlStateNormal       &#x3D; 0,</span><br><span class="line">    UIControlStateHighlighted  &#x3D; 1 &lt;&lt; 0,</span><br><span class="line">    UIControlStateDisabled     &#x3D; 1 &lt;&lt; 1,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>7.建议加载 xib,xib 名称用 NSStringFromClass(),避免书写错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 推荐写法</span><br><span class="line"> [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([DXRecommendTagVCell class]) bundle:nil] forCellReuseIdentifier:ID];</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 不推荐写法</span><br><span class="line"> [self.tableView registerNib:[UINib nibWithNibName:@&quot;DXRecommendTagVCell&quot; bundle:nil] forCellReuseIdentifier:ID];</span><br></pre></td></tr></table></figure>
+
+<p>8.场景需求:在继承中,凡是要求子类重写父类的方法必须先调用父类的这个方法进行初始化操作;建议:父类的方法名后面加上 NS_REQUIRES_SUPER; 子类重写这个方法就会自动警告提示要调用这个 super 方法,示例代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 注意:父类中的方法加&#96;NS_REQUIRES_SUPER&#96;,子类重写才有警告提示</span><br><span class="line">- (void)prepare NS_REQUIRES_SUPER;</span><br></pre></td></tr></table></figure>
+
+<p>9.建议书写属性名不要和系统一样,避免发生莫名其妙的问题;特别注意的是 label;属性名不要写成 textLabel</p>
+<p>10.项目中添加 plist 类型文件,不要命名为 info.plist,以防止和系统自带的文件重名,发生莫名其妙的问题;</p>
+<p>11.如果控制器已经加载过,就不用再次加载,优化性能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if (vc.isViewLoaded) return;</span><br></pre></td></tr></table></figure>
+
+<p>12.id 类型属性不能用点语法,调用 get 方法只能用中括号调用,[id 方法名],利用 iOS9 新特性泛型就可以; 比如数组;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic,strong) NSMutableArray *topicsM;</span><br></pre></td></tr></table></figure>
+
+<p>13.如果不是属性,尽量不要点语法;使用点语法会让代码简洁。但对于其他情况，都应该使用方括号语法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;建议</span><br><span class="line">NSInteger arrayCount &#x3D; [self.array count];</span><br><span class="line">view.backgroundColor &#x3D; [UIColor orangeColor];</span><br><span class="line">[UIApplication sharedApplication].delegate;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;不建议</span><br><span class="line">NSInteger arrayCount &#x3D; self.array.count;</span><br><span class="line">[view setBackgroundColor:[UIColor orangeColor]];</span><br><span class="line">UIApplication.sharedApplication.delegate;</span><br></pre></td></tr></table></figure>
+
+<p>14.使用第三方框架,尽量不要更改内部文件,而应该再次封装,个性定制;</p>
+<p>15.判断 if 书写方式</p>
+<p>建议这样写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    if (indexPath.row &#x3D;&#x3D; 0) return 44;</span><br><span class="line">    if (indexPath.row &#x3D;&#x3D; 1) return 80;</span><br><span class="line">    if (indexPath.row &#x3D;&#x3D; 2) return 50;</span><br><span class="line">    return 44;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>而不是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath</span><br><span class="line">&#123;</span><br><span class="line">    if (indexPath.row &#x3D;&#x3D; 0) &#123;</span><br><span class="line">        return 44;</span><br><span class="line">    &#125;else if (indexPath.row &#x3D;&#x3D; 1)&#123;</span><br><span class="line">        return 80;</span><br><span class="line">    &#125;else if (indexPath.row &#x3D;&#x3D; 2)&#123;</span><br><span class="line">        return 50;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return 44;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>16.接手一个新项目,快速的调试,查看某个模块或者方法的作用,需要注释掉一个方法,或者某个代码块,直接写 return;而不是全选,注释掉;</p>
+<p>比如:查看这个方法 loadNewRecommendTags 作用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (void)loadNewRecommendTags</span><br><span class="line">&#123;</span><br><span class="line">    return;</span><br><span class="line"></span><br><span class="line">    [SVProgressHUD show];</span><br><span class="line">    &#x2F;&#x2F; 取消之前的任务</span><br><span class="line">    [self.manager.tasks makeObjectsPerformSelector:@selector(cancel)];</span><br><span class="line">    NSMutableDictionary *params &#x3D; [NSMutableDictionary dictionary];</span><br><span class="line"></span><br><span class="line">    params[@&quot;a&quot;] &#x3D; @&quot;tag_recommend&quot;;</span><br><span class="line">    params[@&quot;c&quot;] &#x3D; @&quot;topic&quot;;</span><br><span class="line">    params[@&quot;action&quot;] &#x3D; @&quot;sub&quot;;</span><br><span class="line">    [self.manager GET:DXCommonUrlPath parameters:params success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) &#123;</span><br><span class="line"></span><br><span class="line">        self.recommendTag &#x3D; [DXRecommendTag mj_objectArrayWithKeyValuesArray:responseObject];</span><br><span class="line">        [self.tableView reloadData];</span><br><span class="line">        [SVProgressHUD dismiss];</span><br><span class="line">    &#125; failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) &#123;</span><br><span class="line">        DXLog(@&quot;%@&quot;,error);</span><br><span class="line">        [SVProgressHUD dismiss];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>17.在一个自定义的 View 中,或者自定义 cell 中,modal 出一个控制器建议:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[UIApplication sharedApplication].keyWindow.rootViewController</span><br></pre></td></tr></table></figure>
+
+<p>代替</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.window.rootViewController,因为程序可能不止一个window,self.window可能不是主窗口;</span><br></pre></td></tr></table></figure>
+
+<p>18.建议:用 CGSizeZero 代替 CGSizeMake(0,0);</p>
+<p>CGRectZero 代替 CGRectMake(0, 0, 0, 0);</p>
+<p>CGPointZero 代替 CGPointMake(0, 0)</p>
+<p>19.监听键盘的通知建议:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UIKIT_EXTERN NSString *const UIKeyboardWillChangeFrameNotification</span><br></pre></td></tr></table></figure>
+
+<p>而不是,下面代码;因为键盘可能因为改变输入法,切换成表情输入,切换成英文,那么 frame 可能会变高,变矮,不一定会发出下面这些通知,但是肯定会发上面的通知</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIKIT_EXTERN?NSString *const UIKeyboardWillShowNotification;</span><br><span class="line">UIKIT_EXTERN?NSString *const UIKeyboardDidShowNotification;</span><br><span class="line">UIKIT_EXTERN?NSString *const UIKeyboardWillHideNotification;</span><br><span class="line">UIKIT_EXTERN?NSString *const UIKeyboardDidHideNotification;</span><br></pre></td></tr></table></figure>
+
+<p>20.发布通知的字符串常量规范,建议模仿苹果;如上键盘的通知的书写,加上 const 保证字符串不可更改,以 Notification 结尾,一看就知道是通知;应尽量保证可读性,不要怕句子太长;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSString *const buttonDidClickNotification &#x3D; @&quot;buttonDidClickNotification&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>21.如果除数为 0,iOS8 以下会直接报错,(NaN—&gt;Not a Number)iOS9 不会,所以应该判断,比如服务器返回图片的宽高,按比例缩放:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGFloat contentH &#x3D; textW * self.height &#x2F; self.width;</span><br></pre></td></tr></table></figure>
+
+<p>22.如果声明的属性,只想使用的 get 方法,不使用 set 方法,并且不想让外界更改这个属性的值,那么建议在括号里面加 readonly;示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property(nonatomic,readonly,getter&#x3D;isKeyWindow) BOOL keyWindow;</span><br></pre></td></tr></table></figure>
+
+<p>23.如果属性是 BOOL 类型,建议在括号中重写 get 方法名称,以提高可读性,示例代码如上;</p>
+<p>24.从系统相册中取照片之前,应该判断系统相册是否可用,如果从相机中拍照获取,要判断相机是否可用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 判断相册是否可以打开</span><br><span class="line">if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) return;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 判断相机是否可以打开</span><br><span class="line">if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) return;</span><br></pre></td></tr></table></figure>
+
+<p>25.在导航控制中,或它的子控制器,设置导航栏的标题应该用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.navigationItem.title &#x3D; @“标题”</span><br></pre></td></tr></table></figure>
+
+<p>而不建议</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.title &#x3D; @“标题”;</span><br></pre></td></tr></table></figure>
+
+<p>26.给 cell 设置分割线,建议用 setFrame:通过设置它高度,设置分割线,而不推荐用给 cell 底部添加一个高度的 UIView,这样做增加了一个控件,从性能上来讲,不如用 setFrame 设置高度</p>
+<p>27.大量操作图层会可能造成应用很卡,给用户体验差,所以尽量不要操作图层;比如设置按钮圆角,比如给 button 设置圆角;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.loginBtn.layer.cornerRadius &#x3D; 5;</span><br><span class="line">self.loginBtn.layer.masksToBounds &#x3D; YES;</span><br></pre></td></tr></table></figure>
+
+<p>28.给分类扩充方法,建议加上前缀,比如第三方框架 SDWebImage,这样做跟系统的方法很容易区分开,减少了程序员之间的沟通成本,同理跟分类添加属性(利用运行时),建议加前缀,以防止苹果官方过一段时间添加了一模一样的属性名,比如给 UITextField 分类添加了 placeholderColor 这个属性,万一某天官方给 placeholder 扩充了这个命名一模一样的属性,那么就不好了</p>
+<p>29.凡是在 storyboard 或者 xib 中给某个控件添加颜色,颜色对角线有分割线,表示可以设置透明度,如果给这个控件设置透明度建议在这里设置,而不是设置 alpha,因为设置了 alpha,那么上面有文字也会随着透明度变大,而变得不清楚;可以设置 background –&gt;other –&gt;opacity</p>
+<p>30.整形转化成浮点型,不建议这么写 a / b _ 1.0,这样写是错误写法,示例 1 / 2 _ 1.0;根据运算法则,从左到右,0 _ 1.0 == 0,而应该在前面写 1.0 _ 1 / 2;建议直接强转 (double)a/b;</p>
+<p>31.抽取方法,或者写工具类,能写类方法,尽量写成类方法,减少了创建对象的步骤,比如给 UIView 扩充分类加载 xib,viewWithXib;</p>
+<p>32.耗时操作应该放在子线程,避免卡主主线程,比如计算文件大小,下载大文件,清除缓存;</p>
+<p>33.声明一个属性,如果是对象,比如数组,不能以 new 单词开始,否则直接报错,因为 new 在 OC 中是生成一个对象的方法,有特殊含义;比如,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@property (nonatomic,strong) NSMutableArray *newTopicsM;</span><br><span class="line">注意:如果newtopicsM是一个单词(区别于驼峰标志),这样写不会报错;如果是基本数据类型则不会报错,比如</span><br><span class="line"></span><br><span class="line">@property (nonatomic,assign) int newNumber;</span><br><span class="line">但是如果一定要写new单词开头的属性,那么声明属性的时候,重写getter方法名称只不过使用getter方法的时候注意下</span><br></pre></td></tr></table></figure>
+
+<p>34.在自定义方法中,and 这个词的用法应该保留。它不应该用于多个参数来说明，就像 initWithWidth:height 以下这个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;</span><br></pre></td></tr></table></figure>
+
+<p>而不应该</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;</span><br></pre></td></tr></table></figure>
+
+<p>35.多线程同步问题造成的 Crash<br>对于数据源或 model 类一定要注意多线程同时访问的情况, 可以用 GCD 的串行队列来同步线程.</p>
+<p>36.Observer 的移除<br>现在的代码里面很多需要用到 Observer, 根据被观察对象的状态来相应的 Update UI 或者执行某个操作. 注册 observer 很简单, 但是移除的时候就出问题了, 要么是忘记移除 observer 了, 要么是移除的时机不对. 如果某个被观察对象已经被释放了, observer 还在, 那结果只能是 crash 了, 所以切记至少在 dealloc 里面移除一下 observer</p>
+<p>37.NSArray, NSDictionary 成员的判空保护<br>在 addObject 或 insertObject 到 NSArray 或者 NSDictionary 时最好加一下判空保护, 尤其是网络相关的逻辑, 如果网络返回为空(jason 解析出来为空), 需要先判空再 add 到 array 里面</p>
+<p>38.commit 代码之前一定要保证没有 warning, 没有内存泄露, 确保都 OK 之后再上传代码。上传代码之前 Command + Shift + B 静态分析一下, 看看有没有什么 issue 即可</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://major9506.github.io/2018/08/21/ios/" title="IOS 编码风格指南" target="_blank" rel="external">https://major9506.github.io/2018/08/21/ios/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/Major9506" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/Major9506" target="_blank"><span class="text-dark">Major_</span><small class="ml-1x">前端/Node/Python</small></a></h3>
+        <div>年轻无为，卖马为生</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/10/01/js_frame/" title="从零开始编写自己的JavaScript框架（一）"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2018/05/21/android/" title="Android 编码风格指南"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Major9506" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/youguke63347" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>

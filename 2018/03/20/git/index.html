@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Git使用流程规范 | Hexo</title>
+  <meta name="description" content="团队开发中，遵循一个合理、清晰的Git使用流程，是非常重要的。否则，每个人都提交一堆杂乱无章的commit，项目很快就会变得难以协调和维护。 图1：分支提交流程  图2：分支合并流程  分支管理命名及说明   分支 命名 说明    主分支 master 发布分支   开发分支 develop 开发分支   功能分支 feature&#x2F;xxx 新功能开发   修复分支 fix&#x2F;xxx 开发过程缺陷修">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git使用流程规范">
+<meta property="og:url" content="https://major9506.github.io/2018/03/20/git/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="团队开发中，遵循一个合理、清晰的Git使用流程，是非常重要的。否则，每个人都提交一堆杂乱无章的commit，项目很快就会变得难以协调和维护。 图1：分支提交流程  图2：分支合并流程  分支管理命名及说明   分支 命名 说明    主分支 master 发布分支   开发分支 develop 开发分支   功能分支 feature&#x2F;xxx 新功能开发   修复分支 fix&#x2F;xxx 开发过程缺陷修">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://major9506.github.io/2018/03/20/git/git_1.png">
+<meta property="og:image" content="https://major9506.github.io/2018/03/20/git/git_flow2.png">
+<meta property="og:updated_time" content="2021-03-01T21:34:02.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://major9506.github.io/2018/03/20/git/git_1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://major9506.github.io/2018/03/20/git/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+</head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/Major9506" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.png" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Major_</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">前端/Node/Python</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> ChongQing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Major9506" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/youguke63347" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/">编程规范</a><span class="category-list-count">5</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/" rel="tag">javascript</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/" rel="tag">node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" rel="tag">编码风格指南</a><span class="tag-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/git/" style="font-size: 13px;">git</a> <a href="/tags/javascript/" style="font-size: 14px;">javascript</a> <a href="/tags/node/" style="font-size: 13px;">node</a> <a href="/tags/%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC%E6%8C%87%E5%8D%97/" style="font-size: 13.5px;">编码风格指南</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/10/15/mj_cli/" class="title">打造自己的项目脚手架工具(@major_/cli)</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-10-15T00:00:00.000Z" itemprop="datePublished">2019-10-15</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/08/01/architecture/" class="title">前端架构那些事儿</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-08-01T00:00:00.000Z" itemprop="datePublished">2019-08-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/05/assembly_02/" class="title">Web应用的组件化开发（二）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-05T00:00:00.000Z" itemprop="datePublished">2019-05-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/05/01/assembly_01/" class="title">Web应用的组件化开发（一）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-05-01T00:00:00.000Z" itemprop="datePublished">2019-05-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/03/15/js_mvc/" class="title">前端MV*框架的意义</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-03-15T00:00:00.000Z" itemprop="datePublished">2019-03-15</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-git" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Git使用流程规范
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/03/20/git/" class="article-date">
+	  <time datetime="2018-03-20T00:00:00.000Z" itemprop="datePublished">2018-03-20</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/">编程规范</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/git/" rel="tag">git</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/03/20/git/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <p>团队开发中，遵循一个合理、清晰的Git使用流程，是非常重要的。<br>否则，每个人都提交一堆杂乱无章的commit，项目很快就会变得难以协调和维护。</p>
+<p>图1：分支提交流程</p>
+<p><img src="/2018/03/20/git/git_1.png" alt="git_1"></p>
+<p>图2：分支合并流程</p>
+<p><img src="/2018/03/20/git/git_flow2.png" alt="git_flow2"></p>
+<h1 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h1><h2 id="命名及说明"><a href="#命名及说明" class="headerlink" title="命名及说明"></a>命名及说明</h2><table>
+<thead>
+<tr>
+<th>分支</th>
+<th>命名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主分支</td>
+<td>master</td>
+<td>发布分支</td>
+</tr>
+<tr>
+<td>开发分支</td>
+<td>develop</td>
+<td>开发分支</td>
+</tr>
+<tr>
+<td>功能分支</td>
+<td>feature/xxx</td>
+<td>新功能开发</td>
+</tr>
+<tr>
+<td>修复分支</td>
+<td>fix/xxx</td>
+<td>开发过程缺陷修复</td>
+</tr>
+<tr>
+<td>紧急修复分支</td>
+<td>hotfix/xxx</td>
+<td>生产环境缺陷修复</td>
+</tr>
+</tbody></table>
+<h3 id="master"><a href="#master" class="headerlink" title="master"></a>master</h3><ul>
+<li>master为主分支，是用于部署生产环境的分支。</li>
+<li>master分支节点由develop或hotfix分支合并而来，任何时间都不能直接修改其代码。</li>
+<li>合并到master分支的代码，必须保证经过充分的测试。</li>
+</ul>
+<h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><ul>
+<li>tag为master分支部署到生产环境后，在master分支节点上标注的一个标签。</li>
+<li>tag的命名规则：x.y.z，依次为主版本号，次版本号，bug修复号。</li>
+</ul>
+<h3 id="develop"><a href="#develop" class="headerlink" title="develop"></a>develop</h3><ul>
+<li>develop为开发分支，始终保持最新完成的功能和bug修复后的代码。</li>
+</ul>
+<h3 id="feature分支"><a href="#feature分支" class="headerlink" title="feature分支"></a>feature分支</h3><ul>
+<li>开发新功能时，以develop为基准创建feature分支。</li>
+<li>分支命名规则： feature/modules，modules为要新增的功能模块。</li>
+</ul>
+<h3 id="fix分支"><a href="#fix分支" class="headerlink" title="fix分支"></a>fix分支</h3><ul>
+<li>修复开发过程中发现的问题，以develop为基准创建fix分支。</li>
+<li>分支命名规则：fix/problem，problem为要修复的问题。</li>
+</ul>
+<h3 id="hotfix分支"><a href="#hotfix分支" class="headerlink" title="hotfix分支"></a>hotfix分支</h3><ul>
+<li>当线上出现紧急问题时，需要及时修复，以master分支为基线，创建hotfix分支。问题修复完成并验证后，分别合并到master分支和develop分支。</li>
+<li>分支命名规则：hotfix/problem ，problem为修复的问题。</li>
+</ul>
+<h2 id="提交代码"><a href="#提交代码" class="headerlink" title="提交代码"></a>提交代码</h2><p>本地仓库完成分支功能的开发，即可撰写提交信息并提交commit至远端仓库。<br>提交PR的分支遵循最小功能或最少问题修复的原则，以减少问题复杂度和code review复杂度。</p>
+<h3 id="feture、fix-分支提交"><a href="#feture、fix-分支提交" class="headerlink" title="feture、fix 分支提交"></a>feture、fix 分支提交</h3><ul>
+<li>本地仓库分支rebase develop基线，并解决代码冲突。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(feature/xxx): git fetch origin</span><br><span class="line">(feature/xxx): git rebase -i origin/develop</span><br><span class="line"><span class="meta">#</span><span class="bash"> 解决冲突</span></span><br><span class="line">(feature/xxx): git commit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>本地仓库rebase feature commit，合成一笔commit。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查看git <span class="built_in">log</span>，feature/xxx 分支有3笔commit</span></span><br><span class="line">(feature/xxx): git rebase -i HEAD~3</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将3笔commit合成1笔</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>push feture分支到远端仓库。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(feature/xxx): git push -u origin feature/xxx</span><br></pre></td></tr></table></figure>
+
+<h3 id="hotfix分支的提交"><a href="#hotfix分支的提交" class="headerlink" title="hotfix分支的提交"></a>hotfix分支的提交</h3><p>hotfix分支将问题修复并验证后，将本地仓库commit rebase为一笔后提交到远程仓库。</p>
+<h3 id="其他分支的提交"><a href="#其他分支的提交" class="headerlink" title="其他分支的提交"></a>其他分支的提交</h3><ul>
+<li>应对master分支加锁，不允许直接提交。在进行上线合并操作时，应由master以上权限的仓库管理员进行临时解锁操作分支。</li>
+<li>应对develop分支加锁，不允许直接提交。在解决冲突等场景下，应由master以上权限的仓库管理员进行临时解锁操作分支。</li>
+</ul>
+<h3 id="撰写提交信息"><a href="#撰写提交信息" class="headerlink" title="撰写提交信息"></a>撰写提交信息</h3><p>提交commit时，必须给出完整扼要的提交信息，以下为范例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">简要信息(50字以内)</span><br><span class="line">* 功能及改动原因(72字以内)</span><br><span class="line">* 问题及注意事项(72字以内)</span><br><span class="line"></span><br><span class="line">http://相关链接地址</span><br></pre></td></tr></table></figure>
+
+<h2 id="合并代码"><a href="#合并代码" class="headerlink" title="合并代码"></a>合并代码</h2><ul>
+<li>提交到远程仓库的分支，可在gitlab上新建pull request（提交PR时勾选删除原分支），由持续集成服务和人工code review确保代码质量后，相关人员对分支进行合并然后删除该分支。</li>
+<li>若PR被打回，开发人员修改问题并重复提交代码的流程后，重复上一步骤。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">PR打回后重新提交到远端时可使用 --force 或 -f 参数覆盖远端分支</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## ..... </span></span></span><br><span class="line">git push -f origin branchName</span><br></pre></td></tr></table></figure>
+
+<h1 id="流程管理"><a href="#流程管理" class="headerlink" title="流程管理"></a>流程管理</h1><h2 id="冲突解决"><a href="#冲突解决" class="headerlink" title="冲突解决"></a>冲突解决</h2><ul>
+<li>如若遵循本规范，冲突会在本地仓库分支提交远端仓库前由开发人员自行解决。</li>
+<li>当有多个PR合并到同一分支时，某个PR合并后导致另外一个或多个分支合并发生冲突，此时应由仓库master协同PR提交者解决冲突。</li>
+</ul>
+<h2 id="PR提交修改"><a href="#PR提交修改" class="headerlink" title="PR提交修改"></a>PR提交修改</h2><ul>
+<li>提交PR后，代码审核不通过，需要开发者修改重新提交。</li>
+<li>操作者在PR合并前需要修改PR分支的代码并重新提交。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 做一些修改</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 提交本地修改暂存</span></span><br><span class="line">(feature/xxx): git add -A</span><br><span class="line"><span class="meta">#</span><span class="bash"> 提交至本地分支</span></span><br><span class="line">(feature/xxx): git commit -a -m "message"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 合并提交笔数</span></span><br><span class="line">(feature/xxx): git rebase -i HEAD~n</span><br><span class="line"><span class="meta">#</span><span class="bash"> 推送至远端仓库分支</span></span><br><span class="line">(feature/xxx): git push -f origin feature/xxx</span><br></pre></td></tr></table></figure>
+
+<p>完成以上步骤，远端仓库待合并PR分支就更新为更改后的代码，重新等待审核和合并即可。</p>
+<h2 id="已合并PR回滚"><a href="#已合并PR回滚" class="headerlink" title="已合并PR回滚"></a>已合并PR回滚</h2><p>由于某些原因导致已经合并的PR需要回滚，由仓库master进行回滚操作。<br>开发者修改完问题后，重新提交PR进行合并。</p>
+<h2 id="发版流程"><a href="#发版流程" class="headerlink" title="发版流程"></a>发版流程</h2><h3 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h3><p>项目中版本控制通过以下部分组成：<br>|名称|说明|作用|<br>|-|-|-|<br>|versionMajor|主版本号|大版本更迭，不向下兼容|<br>|versionMinor|次版本号|小版本功能迭代|<br>|versionPatch|bug修复号|小版本问题修复|<br>|versionBuild|编译号|每次提测时增1|</p>
+<ul>
+<li>生产环境通过 M.m.p 三个版本号来区分版本</li>
+<li>用于测试时通过 M.m.p.b 四个版本号来区分版本</li>
+</ul>
+<h3 id="发布流程"><a href="#发布流程" class="headerlink" title="发布流程"></a>发布流程</h3><p>当所有测试通过，代码（develop分支）达到交付水平时，由项目master来进行发版代码合并。<br>在进行发布流程前，应由仓库master同步更新远端仓库到本地仓库作为灾备。</p>
+<ul>
+<li>develop分支切出release分支。</li>
+<li>release分支更改版本号并提交。</li>
+<li>release分支合并至master分支。</li>
+<li>master分支推送至远端仓库。</li>
+<li>在master分支上打上版本号（tag），推送至远端仓库。</li>
+</ul>
+<h2 id="紧急修复流程"><a href="#紧急修复流程" class="headerlink" title="紧急修复流程"></a>紧急修复流程</h2><p>上线发布后，若生产环境出现紧急缺陷需要修复，则走紧急发版流程</p>
+<ul>
+<li>切至出现问题的版本（以1.2.0为例），切出分支 hotfix/1.2.1。</li>
+<li>若由一人修复缺陷，则直接在hotfix/1.2.1分支上提交代码，待所有问题修复完毕且测试通过，将hotfix/1.2.1合并至master分支并打上tag推送至远端仓库。</li>
+<li>若由多人修复缺陷，则每人分别从hotfix/1.2.1分支上切出分支提交代码，再合并至hotfix/1.2.1分支，待所有问题修复完毕且测试通过，将hotfix/1.2.1合并至master分支并打上tag推送至远端仓库。</li>
+<li>将hotfix/1.2.1合并至develop分支，推送至远程。</li>
+</ul>
+<h2 id="多版本并存"><a href="#多版本并存" class="headerlink" title="多版本并存"></a>多版本并存</h2><p>一般项目开发过程中鲜有多个版本并行维护的案例，为应对这种场景我们有如下规范：</p>
+<p>若项目在发布1.0版本后，需要并行1.0和2.0版本的开发</p>
+<ul>
+<li>从master分支切出1.0分支，1.x - 2.0版本的开发就基于1.0为主分支进行开发，1.x分支除没有develop分支以外一切遵循之前的介绍的git规范流程。</li>
+<li>2.x版本的开发继续遵循之前介绍的git规范流程。</li>
+</ul>
+<p>并行开发时任一主分支上出现缺陷需要修复合并时，应追溯该问题产生的节点，若问题发生在主分支分叉之前，则修复合并时应合并至分叉后的每个主分支上，再合并至develop分支。</p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://major9506.github.io/2018/03/20/git/" title="Git使用流程规范" target="_blank" rel="external">https://major9506.github.io/2018/03/20/git/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/Major9506" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.png" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/Major9506" target="_blank"><span class="text-dark">Major_</span><small class="ml-1x">前端/Node/Python</small></a></h3>
+        <div>年轻无为，卖马为生</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/03/22/dart/" title="Dart &amp; flutter 编码风格指南"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.jpg" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/Major9506" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="https://weibo.com/youguke63347" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="#" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
+
+
+
+
+
+</body>
+</html>
